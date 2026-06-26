@@ -29,6 +29,10 @@ export const STRINGS: Dict = {
   nav_journal: { en: "Journal", ar: "اليوميات" },
   search: { en: "Search", ar: "بحث" },
   nav_health: { en: "Health", ar: "الصحة" },
+  nav_mail: { en: "Mail", ar: "البريد" },
+  mail_connect: { en: "Connect Google (with Gmail) in Settings to see your inbox here.", ar: "اربط جوجل (مع Gmail) من الإعدادات لعرض بريدك هنا." },
+  mail_reconnect: { en: "Reconnect Google to grant Gmail access.", ar: "أعد ربط جوجل لمنح صلاحية البريد." },
+  mail_empty: { en: "Inbox is empty.", ar: "صندوق الوارد فارغ." },
   ask: { en: "Ask", ar: "اسأل" },
   // briefing
   briefing_title: { en: "Daily Briefing", ar: "موجز اليوم" },

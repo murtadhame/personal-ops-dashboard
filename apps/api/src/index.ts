@@ -15,6 +15,7 @@ import { moduleRoutes } from "./routes/modules.js";
 import { briefingRoutes } from "./routes/briefing.js";
 import { askRoutes } from "./routes/ask.js";
 import { healthRoutes } from "./routes/health.js";
+import { gmailRoutes } from "./routes/gmail.js";
 
 const app = Fastify({
   logger: { transport: { target: "pino-pretty", options: { colorize: true } } },
@@ -58,6 +59,7 @@ await app.register(moduleRoutes);
 await app.register(briefingRoutes);
 await app.register(askRoutes);
 await app.register(healthRoutes);
+await app.register(gmailRoutes);
 
 // Calendar sync every 15 minutes (guide: don't sync on every page load).
 const FIFTEEN_MIN = 15 * 60 * 1000;

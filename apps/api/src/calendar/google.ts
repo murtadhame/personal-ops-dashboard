@@ -3,7 +3,13 @@ import { google } from "googleapis";
 import { env } from "../env.js";
 import { query, one } from "../db.js";
 
-const SCOPES = ["https://www.googleapis.com/auth/calendar.readonly", "openid", "email", "profile"];
+const SCOPES = [
+  "https://www.googleapis.com/auth/calendar.readonly",
+  "https://www.googleapis.com/auth/gmail.readonly",
+  "openid",
+  "email",
+  "profile",
+];
 
 export function oauthClient() {
   return new google.auth.OAuth2(

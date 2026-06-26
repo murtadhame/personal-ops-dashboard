@@ -13,6 +13,7 @@ export const NAV = [
   { href: "/people", key: "nav_people", icon: "target" },
   { href: "/library", key: "nav_library", icon: "sparkles" },
   { href: "/journal", key: "nav_journal", icon: "calendar" },
+  { href: "/mail", key: "nav_mail", icon: "send" },
   { href: "/health", key: "nav_health", icon: "flame" },
   { href: "/domains", key: "nav_domains", icon: "grid" },
 ];
