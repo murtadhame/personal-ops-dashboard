@@ -23,7 +23,7 @@ Stack: Next.js PWA · Fastify (Node) · Supabase (Postgres) · Anthropic API · 
 | 1 | **Supabase** (Pro, $25/mo) | Postgres + storage + auth | https://supabase.com |
 | 2 | **Anthropic API** (pay-as-you-go) | Voice parser + chat | https://console.anthropic.com |
 | 3 | **Google Cloud Console** (free) | OAuth for Google Calendar | https://console.cloud.google.com |
-| 4 | **Microsoft Entra ID** (free) | OAuth for Outlook 365 calendar | https://entra.microsoft.com |
+| 4 | *(Outlook 365)* | No account/app needed — just a published ICS link (see below) | — |
 
 ## ⓒ. Credentials — fill into `.env`
 
@@ -46,14 +46,12 @@ cp .env.example .env      # PowerShell: Copy-Item .env.example .env
   - Authorized redirect URI: `http://localhost:4000/api/calendar/google/callback`
 - → `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`.
 
-**4) Microsoft 365 / Outlook (Badael)** — Entra ID → **App registrations → New registration**:
-- Supported account types: *Accounts in any org directory and personal Microsoft accounts*.
-- Redirect URI (Web): `http://localhost:4000/api/calendar/microsoft/callback`
-- **API permissions → Add → Microsoft Graph → Delegated →** `Calendars.Read`, `offline_access`, `User.Read`.
-  (If Badael's tenant requires admin consent, you may need IT to approve — ask me and I'll
-  draft the request.)
-- **Certificates & secrets → New client secret** → copy the *Value*.
-- → `MS_CLIENT_ID`, `MS_CLIENT_SECRET`. Set `MS_TENANT_ID=common` (works for work + personal).
+**4) Outlook 365 / Badael calendar (VIEW-ONLY — no account or app needed)** — publish the calendar and grab its ICS link:
+- Outlook on the web → **Settings (gear) → Calendar → Shared calendars**.
+- Under **Publish a calendar**: pick the calendar, permission **"Can view all details"**, click **Publish**.
+- Copy the **ICS** link (ends in `.ics`). Paste it later in the app at **Settings → Calendars → Add Outlook (ICS)**.
+- Nothing goes in `.env` for this. If your Badael tenant has publishing disabled by IT,
+  tell me and I'll suggest alternatives.
 
 **5)** Generate `CAPTURE_TOKEN_PEPPER` (any 64+ random chars). PowerShell:
 ```powershell

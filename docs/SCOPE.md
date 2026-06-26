@@ -25,11 +25,16 @@ plus home life, each as a top-level **Domain**:
 - **Hosting:** Managed (Railway / Render / Fly.io) — deploy from git push.
 - **Stack:** Recommended — Next.js PWA + Node (Fastify) + Supabase (Postgres/Storage/Auth)
   + Anthropic API for parsing.
-- **Calendars (extension beyond the guide): BOTH**
-  - **Google Calendar** — personal account.
-  - **Outlook 365 / Microsoft 365** — Badael work account, via **Microsoft Graph API**.
+- **Calendars (extension beyond the guide): BOTH, asymmetric**
+  - **Google Calendar** — personal account, **full OAuth sync**.
+  - **Outlook 365** — Badael work, **VIEW-ONLY via a published ICS share URL** (no OAuth,
+    no Microsoft app registration, no IT admin consent). The app polls the read-only feed.
   - A provider-agnostic calendar layer merges both onto Today with a source badge;
     each connected calendar maps to a default Domain so work vs personal is auto-tagged.
+- **Bilingual UI: English (LTR) + Arabic (RTL).**
+  - Full i18n with a locale toggle (en/ar). Layout direction flips with locale via `dir`
+    attribute + CSS logical properties (margin/padding-inline, `start`/`end`), so the
+    entire UI mirrors correctly in Arabic. Voice capture accepts Arabic and English.
 
 ## Phase plan
 

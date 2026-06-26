@@ -154,20 +154,28 @@ create index if not exists idx_activity_project on activity_log(project_id);
 create index if not exists idx_activity_logged_at on activity_log(logged_at);
 
 -- ---------------------------------------------------------------------
--- calendar_accounts — connected calendars (Google personal + Outlook work)
---   Holds OAuth tokens and the default domain each calendar maps to,
---   so events get tagged work (Badael) vs personal automatically.
+-- calendar_accounts — connected calendars
+--   Two connection kinds:
+--     'oauth'    — Google (personal): full OAuth, can read (and later write).
+--     'ics_feed' — Outlook 365 (Badael work): VIEW-ONLY via a published
+--                  share/ICS URL. No OAuth, no Microsoft app registration.
+--   default_domain_id tags each calendar's events to a domain, so work
+--   (Badael) vs personal is distinguishable on Today automatically.
 -- ---------------------------------------------------------------------
 create table if not exists calendar_accounts (
   id                uuid primary key default gen_random_uuid(),
   provider          calendar_provider not null,
+  connection_kind   text not null default 'oauth',  -- 'oauth' | 'ics_feed'
   account_email     text not null,
   display_name      text,
   color             text,
+  -- OAuth fields (Google):
   access_token      text,                          -- encrypted/managed by backend
   refresh_token     text,
   token_expires_at  timestamptz,
-  sync_token        text,                          -- Google syncToken / MS deltaLink
+  sync_token        text,                          -- Google syncToken
+  -- ICS-feed field (Outlook view-only):
+  ics_url           text,                          -- published .ics share link
   default_domain_id uuid references stewardship_domains(id) on delete set null,
   active            boolean not null default true,
   last_synced_at    timestamptz,
