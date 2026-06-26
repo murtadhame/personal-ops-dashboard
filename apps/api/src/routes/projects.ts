@@ -50,7 +50,7 @@ export async function projectRoutes(app: FastifyInstance) {
     const b = req.body as any;
     return one(
       `insert into projects(name, description, domain_id, type, target_date)
-       values ($1,$2,$3,coalesce($4,'target_date'),$5) returning *`,
+       values ($1,$2,$3,coalesce($4,'target_date')::project_type,$5) returning *`,
       [b.name, b.description ?? null, b.domain_id, b.type, b.target_date ?? null]
     );
   });

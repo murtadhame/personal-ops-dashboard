@@ -44,7 +44,8 @@ export async function taskRoutes(app: FastifyInstance) {
     return one(
       `insert into tasks(title, notes, domain_id, project_id, parent_task_id,
                          due_date, due_time, priority, recurrence_rule, reminder_offsets, source)
-       values ($1,$2,$3,$4,$5,$6,$7,coalesce($8,'normal'),$9,coalesce($10,'[]'::jsonb),'manual')
+       values ($1,$2,$3,$4,$5,$6,$7,coalesce($8,'normal')::task_priority,$9,
+               coalesce($10::jsonb,'[]'::jsonb),'manual')
        returning *`,
       [
         b.title,

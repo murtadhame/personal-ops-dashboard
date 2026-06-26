@@ -93,7 +93,8 @@ export async function executeActions(
           const row = await one<{ id: string; title: string }>(
             `insert into tasks(title, notes, domain_id, project_id, parent_task_id,
                                due_date, due_time, priority, reminder_offsets, source)
-             values ($1,$2,$3,$4,$5,$6,$7,coalesce($8,'normal'),coalesce($9,'[]'::jsonb),$10)
+             values ($1,$2,$3,$4,$5,$6,$7,coalesce($8,'normal')::task_priority,
+                     coalesce($9::jsonb,'[]'::jsonb),$10::capture_source)
              returning id, title`,
             [
               action.title,
