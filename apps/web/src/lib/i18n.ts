@@ -24,6 +24,13 @@ export const STRINGS: Dict = {
   nav_settings: { en: "Settings", ar: "الإعدادات" },
   // today
   today_title: { en: "Today", ar: "اليوم" },
+  greet_morning: { en: "Good morning", ar: "صباح الخير" },
+  greet_afternoon: { en: "Good afternoon", ar: "مساء الخير" },
+  greet_evening: { en: "Good evening", ar: "مساء الخير" },
+  stat_open: { en: "Open tasks", ar: "مهام مفتوحة" },
+  stat_due: { en: "Due today", ar: "تستحق اليوم" },
+  stat_slipping: { en: "Slipping", ar: "متعثّرة" },
+  stat_triage: { en: "To triage", ar: "للمراجعة" },
   today_focus: { en: "Top tasks", ar: "أهم المهام" },
   today_schedule: { en: "Schedule", ar: "الجدول" },
   today_domains: { en: "Domains", ar: "المجالات" },

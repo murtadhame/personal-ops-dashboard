@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "description": "Murtadha's personal operations dashboard — voice-first capture across Badael, Nashati, Household, and Personal.",
-  "packageManager": "pnpm@9.12.0",
   "engines": {
     "node": ">=18"
   },

@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocale } from "@/lib/LocaleProvider";
 import { api } from "@/lib/api";
+import { Icon } from "./Icon";
 
 export function MicCapture() {
   const { t, locale } = useLocale();
@@ -81,14 +82,15 @@ export function MicCapture() {
   return (
     <>
       {!open && (
-        <button className="fab" onClick={openSheet} aria-label={t("capture")}>
-          🎙️
+        <button className={`fab ${recording ? "recording" : ""}`} onClick={openSheet} aria-label={t("capture")}>
+          <Icon name="mic" size={24} />
         </button>
       )}
 
       {open && (
         <div className="sheet-backdrop" onClick={closeSheet}>
           <div className="sheet" onClick={(e) => e.stopPropagation()}>
+            <div className="grab" />
             <h3>{t("capture")}</h3>
             <p className="muted" style={{ marginBlockStart: 0, fontSize: "0.85rem" }}>
               {recording ? t("listening") : t("capture_hint")}
@@ -104,13 +106,15 @@ export function MicCapture() {
               <button
                 className={`btn ${recording ? "primary" : "ghost"}`}
                 onClick={recording ? stopRec : startRec}
+                aria-label={recording ? "stop" : "record"}
               >
-                {recording ? "■" : "🎙️"}
+                <Icon name={recording ? "x" : "mic"} size={18} />
               </button>
               <button className="btn" onClick={closeSheet}>
                 {t("cancel")}
               </button>
               <button className="btn primary" onClick={send} disabled={sending || !text.trim()}>
+                <Icon name="send" size={16} />
                 {sending ? "…" : t("send")}
               </button>
             </div>
@@ -118,7 +122,12 @@ export function MicCapture() {
         </div>
       )}
 
-      {toast && <div className="toast">{toast}</div>}
+      {toast && (
+        <div className="toast">
+          <span className="ico"><Icon name="sparkles" size={18} /></span>
+          <span>{toast}</span>
+        </div>
+      )}
     </>
   );
 }
