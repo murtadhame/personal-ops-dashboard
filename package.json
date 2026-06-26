@@ -1,0 +1,22 @@
+{
+  "name": "personal-ops-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Murtadha's personal operations dashboard — voice-first capture across Badael, Nashati, Household, and Personal.",
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter \"./apps/*\" dev",
+    "dev:web": "pnpm --filter web dev",
+    "dev:api": "pnpm --filter api dev",
+    "build": "pnpm --filter \"./apps/*\" build",
+    "db:migrate": "pnpm --filter @pod/db migrate",
+    "db:seed": "pnpm --filter @pod/db seed",
+    "lint": "pnpm --filter \"./apps/*\" lint"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
