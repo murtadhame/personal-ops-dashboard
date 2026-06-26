@@ -193,6 +193,52 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .brief { background: var(--bg-tint); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; margin-block-end: 26px; }
 .brief-body { font-family: var(--serif); white-space: pre-wrap; line-height: 1.6; font-size: 1.04rem; color: var(--text); }
 
+/* ---------- Markdown content ---------- */
+.md { font-family: var(--serif); color: var(--text); line-height: 1.7; font-size: 1.05rem; }
+.md > :first-child { margin-block-start: 0; }
+.md h1 { font-family: var(--serif); font-weight: 600; font-size: 1.8rem; letter-spacing: -0.01em; margin-block: 1.4em 0.5em; line-height: 1.15; }
+.md h2 { font-family: var(--serif); font-weight: 600; font-size: 1.4rem; margin-block: 1.3em 0.4em; }
+.md h3 { font-family: var(--serif); font-weight: 600; font-size: 1.15rem; margin-block: 1.1em 0.3em; }
+.md h1:first-child, .md h2:first-child { margin-block-start: 0; }
+.md p { margin-block: 0.7em; }
+.md ul, .md ol { margin-block: 0.7em; padding-inline-start: 1.4em; }
+.md li { margin-block: 0.35em; }
+.md a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+.md a:hover { opacity: 0.8; }
+.md strong { font-weight: 700; }
+.md em { font-style: italic; color: var(--text-2); }
+.md blockquote { border-inline-start: 3px solid var(--accent); margin-inline: 0; padding-inline-start: 16px; color: var(--text-2); font-style: italic; }
+.md hr { border: none; border-block-start: 1px solid var(--line); margin-block: 1.6em; }
+.md code { font-family: var(--mono); font-size: 0.85em; background: var(--bg-tint); padding: 2px 6px; border-radius: 5px; }
+.md pre { background: var(--bg-tint); padding: 14px; border-radius: 10px; overflow-x: auto; }
+.md pre code { background: none; padding: 0; }
+.md table { border-collapse: collapse; width: 100%; font-size: 0.92rem; margin-block: 1em; }
+.md th, .md td { border: 1px solid var(--line); padding: 8px 11px; text-align: start; }
+.md th { background: var(--bg-tint); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.md img { max-width: 100%; border-radius: 10px; }
+
+/* ---------- Today cockpit ---------- */
+.cockpit { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-block-end: 14px; }
+.cpt-card {
+  display: block; background: var(--bg-tint); border: 1px solid var(--line);
+  border-radius: 16px; padding: 18px 20px; transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease);
+}
+.cpt-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.cpt-card .cpt-head { display: flex; align-items: center; justify-content: space-between; }
+.cpt-card .cpt-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; }
+.cpt-card .cpt-teaser { font-size: 0.88rem; color: var(--text-dim); margin-block-start: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.5; }
+.cpt-card .arrow { font-family: var(--mono); color: var(--accent); }
+
+.info-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-block-end: 6px; }
+.info-card { display: block; background: var(--field); border: 1px solid var(--line); border-radius: 14px; padding: 16px; transition: transform 0.16s var(--ease); }
+.info-card:hover { transform: translateY(-2px); }
+.info-card .ic-eyebrow { display: flex; align-items: center; justify-content: space-between; }
+.info-card .ic-big { font-family: var(--serif); font-size: 1.9rem; line-height: 1.1; margin-block-start: 8px; }
+.info-card .ic-sub { font-size: 0.78rem; color: var(--text-dim); margin-block-start: 4px; }
+.info-card.alert { border-color: var(--accent); }
+.info-card.alert .ic-big { color: var(--accent); }
+.pill-count { font-family: var(--mono); font-size: 0.66rem; background: var(--accent); color: #fff; border-radius: 999px; padding: 2px 8px; }
+
 /* ---------- Ask ---------- */
 .ask-answer { font-family: var(--serif); white-space: pre-wrap; line-height: 1.65; font-size: 1.08rem; margin-block-start: 20px; }
 

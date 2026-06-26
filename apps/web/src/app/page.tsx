@@ -1,9 +1,13 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { useLocale } from "@/lib/LocaleProvider";
 import { api } from "@/lib/api";
 import { Icon } from "@/components/Icon";
 import { LangToggle } from "@/components/LangToggle";
+
+const stripMd = (s: string) =>
+  s.replace(/^#+\s*/gm, "").replace(/[*_`>#]/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/\s+/g, " ").trim();
 
 type Today = {
   date: string;
@@ -36,8 +40,10 @@ export default function TodayPage() {
   const [data, setData] = useState<Today | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [brief, setBrief] = useState<{ body_md: string } | null>(null);
-  const [briefBusy, setBriefBusy] = useState(false);
   const [summary, setSummary] = useState<any>(null);
+  const [health, setHealth] = useState<any>(null);
+  const [mail, setMail] = useState<any>(null);
+  const [nashati, setNashati] = useState<any>(null);
 
   const load = useCallback(() => {
     api.get<Today>("/api/today").then(setData).catch((e) => setErr(e.message));
@@ -55,13 +61,12 @@ export default function TodayPage() {
     api.get<{ body_md: string }>(`/api/briefing/today?lang=${locale}`).then(setBrief).catch(() => {});
   }, [locale]);
 
-  useEffect(() => { api.get<any>("/api/summaries/latest").then(setSummary).catch(() => {}); }, []);
-
-  const regenBrief = async () => {
-    setBriefBusy(true);
-    try { setBrief(await api.post<{ body_md: string }>(`/api/briefing/regenerate?lang=${locale}`)); }
-    finally { setBriefBusy(false); }
-  };
+  useEffect(() => {
+    api.get<any>("/api/summaries/latest").then(setSummary).catch(() => {});
+    api.get<any>("/api/health/today").then(setHealth).catch(() => {});
+    api.get<any>("/api/gmail/recent").then(setMail).catch(() => {});
+    api.get<any>("/api/nashati/action-needed").then(setNashati).catch(() => {});
+  }, []);
 
   const complete = async (id: string) => { await api.post(`/api/tasks/${id}/complete`); load(); };
   const star = async (id: string) => { await api.post(`/api/tasks/${id}/star`); load(); };
@@ -135,28 +140,40 @@ export default function TodayPage() {
       <div className="today-grid">
         {/* MAIN */}
         <div className="today-main animate-in">
-          {/* Daily briefing */}
-          <div className="brief">
-            <div className="sec" style={{ margin: "0 0 12px" }}>
-              <span className="eyebrow">{t("briefing_title")}</span>
-              <button className="viewall" onClick={regenBrief}>{briefBusy ? t("briefing_loading") : `${t("regenerate")} ↻`}</button>
-            </div>
-            {brief ? <div className="brief-body">{brief.body_md}</div> : <div className="muted" style={{ fontSize: "0.9rem" }}>{t("briefing_loading")}</div>}
+          {/* Cockpit: briefing + latest summary buttons */}
+          <div className="cockpit">
+            <Link href="/briefing" className="cpt-card">
+              <div className="cpt-head"><span className="cpt-title">{t("briefing_title")}</span><span className="arrow">→</span></div>
+              <div className="cpt-teaser">{brief ? stripMd(brief.body_md) : t("briefing_loading")}</div>
+            </Link>
+            {summary?.file?.content ? (
+              <Link href="/summary" className="cpt-card">
+                <div className="cpt-head"><span className="cpt-title">{t("latest_summary")}</span><span className="arrow">→</span></div>
+                <div className="cpt-teaser">{summary.file.name} · {stripMd(summary.file.content)}</div>
+              </Link>
+            ) : (
+              <div className="cpt-card"><div className="cpt-head"><span className="cpt-title">{t("latest_summary")}</span></div><div className="cpt-teaser">{summary?.needs_token ? t("summary_needs_token") : "—"}</div></div>
+            )}
           </div>
 
-          {/* Latest summary from GitHub */}
-          {summary?.file?.content && (
-            <div className="brief">
-              <div className="sec" style={{ margin: "0 0 12px" }}>
-                <span className="eyebrow">{t("latest_summary")}</span>
-                {summary.file.html_url && <a className="viewall" href={summary.file.html_url} target="_blank" rel="noreferrer">{summary.file.name} →</a>}
-              </div>
-              <div className="brief-body" style={{ maxBlockSize: 260, overflowY: "auto" }}>{summary.file.content}</div>
-            </div>
-          )}
-          {summary && summary.connected === false && summary.needs_token && (
-            <p className="muted" style={{ fontSize: "0.85rem", marginBlockEnd: 20 }}>{t("summary_needs_token")}</p>
-          )}
+          {/* Info cards: health · mail · nashati */}
+          <div className="info-cards">
+            <Link href="/health" className="info-card">
+              <div className="ic-eyebrow"><span className="eyebrow">{t("nav_health")}</span></div>
+              <div className="ic-big">{health?.water_ml ?? 0}<span style={{ fontSize: "0.85rem", color: "var(--text-dim)" }}> ml</span></div>
+              <div className="ic-sub">{health?.steps ?? 0} {t("steps")}</div>
+            </Link>
+            <Link href="/mail" className="info-card">
+              <div className="ic-eyebrow"><span className="eyebrow">{t("nav_mail")}</span>{mail?.connected && mail.messages?.filter((m: any) => m.unread).length > 0 && <span className="pill-count">{mail.messages.filter((m: any) => m.unread).length}</span>}</div>
+              <div className="ic-big">{mail?.connected ? mail.messages.length : "—"}</div>
+              <div className="ic-sub">{mail?.connected ? `${mail.messages.filter((m: any) => m.unread).length} ${t("unread_count")}` : t("connect_google")}</div>
+            </Link>
+            <Link href="/nashati" className={`info-card ${nashati?.connected && nashati.total_actions > 0 ? "alert" : ""}`}>
+              <div className="ic-eyebrow"><span className="eyebrow">{t("nav_nashati")}</span></div>
+              <div className="ic-big">{nashati?.connected ? nashati.total_actions : "—"}</div>
+              <div className="ic-sub">{nashati?.connected ? t("action_needed") : nashati?.needs_key ? "—" : ""}</div>
+            </Link>
+          </div>
 
           {/* Top 3 */}
           <div className="sec"><span className="eyebrow">{t("top3_title")}</span></div>

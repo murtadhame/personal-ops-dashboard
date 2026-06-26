@@ -47,5 +47,10 @@ export const env = {
     summariesPath: process.env.GITHUB_SUMMARIES_PATH ?? "summaries",
   },
 
+  nashati: {
+    baseUrl: process.env.NASHATI_BASE_URL ?? "https://nashati.ai",
+    apiKey: process.env.NASHATI_ADMIN_API_KEY ?? "",
+  },
+
   capturePepper: process.env.CAPTURE_TOKEN_PEPPER ?? "",
 };

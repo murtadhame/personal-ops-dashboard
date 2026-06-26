@@ -18,6 +18,7 @@ import { healthRoutes } from "./routes/health.js";
 import { gmailRoutes } from "./routes/gmail.js";
 import { whoopRoutes } from "./routes/whoop.js";
 import { summariesRoutes } from "./routes/summaries.js";
+import { nashatiRoutes } from "./routes/nashati.js";
 
 const app = Fastify({
   logger: { transport: { target: "pino-pretty", options: { colorize: true } } },
@@ -64,6 +65,7 @@ await app.register(healthRoutes);
 await app.register(gmailRoutes);
 await app.register(whoopRoutes);
 await app.register(summariesRoutes);
+await app.register(nashatiRoutes);
 
 // Calendar sync every 15 minutes (guide: don't sync on every page load).
 const FIFTEEN_MIN = 15 * 60 * 1000;

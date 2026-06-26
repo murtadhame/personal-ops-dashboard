@@ -64,6 +64,22 @@ export const STRINGS: Dict = {
   // summaries
   latest_summary: { en: "Latest Briefing", ar: "أحدث ملخص" },
   summary_needs_token: { en: "Add a GitHub token (.env GITHUB_TOKEN) to read your summaries repo.", ar: "أضف رمز GitHub (في .env) لقراءة مستودع الملخصات." },
+  // cockpit / pages
+  nav_nashati: { en: "Nashati", ar: "نشاطي" },
+  open_full: { en: "Open", ar: "فتح" },
+  open_briefing: { en: "Open full briefing", ar: "افتح الموجز كاملاً" },
+  referenced: { en: "Jump to", ar: "انتقل إلى" },
+  action_needed: { en: "Action Needed", ar: "إجراء مطلوب" },
+  all_clear: { en: "All clear", ar: "لا إجراءات" },
+  unread_count: { en: "unread", ar: "غير مقروء" },
+  inbox_label: { en: "Inbox", ar: "الوارد" },
+  nashati_needs_key: { en: "Add NASHATI_ADMIN_API_KEY in .env to connect the Nashati cockpit.", ar: "أضف مفتاح نشاطي في .env لتفعيل لوحة نشاطي." },
+  pending_approvals: { en: "Pending approvals", ar: "موافقات معلّقة" },
+  open_tickets: { en: "Open tickets", ar: "تذاكر مفتوحة" },
+  providers: { en: "Providers", ar: "مزوّدون" },
+  activities: { en: "Activities", ar: "أنشطة" },
+  published: { en: "Published", ar: "منشورة" },
+  parents: { en: "Parents", ar: "أولياء أمور" },
   // today sections
   top3_title: { en: "Top 3 for Today", ar: "أهم ٣ لليوم" },
   up_next: { en: "Up Next", ar: "التالي" },

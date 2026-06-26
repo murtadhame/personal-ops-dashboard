@@ -8,6 +8,7 @@ export const NAV = [
   { href: "/", key: "nav_today", icon: "home" },
   { href: "/tasks", key: "nav_tasks", icon: "checkCircle" },
   { href: "/routines", key: "nav_routines", icon: "flame" },
+  { href: "/nashati", key: "nav_nashati", icon: "globe" },
   { href: "/projects", key: "nav_projects", icon: "layers" },
   { href: "/content", key: "nav_content", icon: "activity" },
   { href: "/people", key: "nav_people", icon: "target" },
