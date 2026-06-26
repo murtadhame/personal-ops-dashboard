@@ -20,6 +20,7 @@ NOT yet connected: live Nashati.ai dashboard data, Google Analytics, Whoop/steps
 using ONLY the JSON context below. Be concise and direct. If the question needs a data source that is
 NOT connected (e.g. live Nashati.ai metrics, Google Analytics, Whoop), say clearly that it isn't connected
 yet and what he'd need to connect it — do not guess numbers. ${connected}
+Write ALL numbers in Western Arabic numerals (0-9), never Eastern Arabic-Indic (٠١٢٣), even in Arabic.
 
 CONTEXT:
 ${JSON.stringify(ctx)}`;

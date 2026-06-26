@@ -13,7 +13,7 @@ export default function DomainsPage() {
 
   const fmtDate = (iso: string | null) =>
     iso
-      ? new Date(iso).toLocaleDateString(locale === "ar" ? "ar-SA" : "en-US", {
+      ? new Date(iso).toLocaleDateString(locale === "ar" ? "ar-SA-u-nu-latn" : "en-US", {
           month: "short",
           day: "numeric",
         })

@@ -11,7 +11,7 @@ export default function MailPage() {
 
   useEffect(() => { api.get<MailResp>("/api/gmail/recent").then(setData).catch(() => setData({ connected: false, messages: [] })); }, []);
 
-  const fmt = (d: string) => { const x = new Date(d); return isNaN(+x) ? "" : x.toLocaleDateString(locale === "ar" ? "ar-SA" : "en-US", { month: "short", day: "numeric" }); };
+  const fmt = (d: string) => { const x = new Date(d); return isNaN(+x) ? "" : x.toLocaleDateString(locale === "ar" ? "ar-SA-u-nu-latn" : "en-US", { month: "short", day: "numeric" }); };
 
   return (
     <div className="page">

@@ -69,7 +69,7 @@ export default function TodayPage() {
 
   const evWhen = (iso: string, allDay: boolean) => {
     const d = new Date(iso);
-    const opts = locale === "ar" ? "ar-SA" : "en-US";
+    const opts = locale === "ar" ? "ar-SA-u-nu-latn" : "en-US";
     const sameDay = d.toLocaleDateString("en-CA") === todayStr();
     const day = sameDay ? "" : d.toLocaleDateString(opts, { weekday: "short" });
     const h = allDay ? "—" : d.toLocaleTimeString(opts, { hour: "numeric", minute: "2-digit" });
@@ -84,7 +84,7 @@ export default function TodayPage() {
 
   const name = locale === "ar" ? data.profile?.name_ar || data.profile?.name_en : data.profile?.name_en || data.profile?.name_ar;
   const greet = () => { const h = new Date().getHours(); return h < 12 ? t("greet_morning") : h < 18 ? t("greet_afternoon") : t("greet_evening"); };
-  const longDate = new Date().toLocaleDateString(locale === "ar" ? "ar-SA" : "en-US", { weekday: "long", month: "long", day: "numeric" });
+  const longDate = new Date().toLocaleDateString(locale === "ar" ? "ar-SA-u-nu-latn" : "en-US", { weekday: "long", month: "long", day: "numeric" });
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const grouped = BUCKETS.map((b) => ({ b, items: data.open.filter((task) => bucketOf(task.due_date) === b) })).filter((g) => g.items.length);

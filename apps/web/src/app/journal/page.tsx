@@ -17,7 +17,7 @@ export default function JournalPage() {
   }, [load]);
 
   const add = async () => { if (!text.trim()) return; await api.post("/api/journal", { text: text.trim() }); setText(""); load(); };
-  const fmt = (d: string) => new Date(d + "T00:00:00").toLocaleDateString(locale === "ar" ? "ar-SA" : "en-US", { weekday: "long", month: "long", day: "numeric" });
+  const fmt = (d: string) => new Date(d + "T00:00:00").toLocaleDateString(locale === "ar" ? "ar-SA-u-nu-latn" : "en-US", { weekday: "long", month: "long", day: "numeric" });
 
   return (
     <div className="page">

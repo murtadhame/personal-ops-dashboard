@@ -63,7 +63,8 @@ async function generateBriefing(language: string): Promise<string> {
   const sys = `You are the daily briefing writer for Murtadha's personal operations dashboard.
 Write a warm, concise morning briefing in ${lang}. Be specific and grounded ONLY in the data provided.
 Structure: a one-line greeting, then short sections — what matters today, calendar, anything slipping,
-routines nudge. Use a few short bullet points. No invented facts. Keep it under 180 words.`;
+routines nudge. Use a few short bullet points. No invented facts. Keep it under 180 words.
+IMPORTANT: write ALL numbers in Western Arabic numerals (0,1,2,3,4,5,6,7,8,9) — never Eastern Arabic-Indic (٠١٢٣٤٥٦٧٨٩), even in Arabic.`;
   const msg = await anthropic.messages.create({
     model: env.parserModel,
     max_tokens: 700,

@@ -22,7 +22,7 @@ export default function HealthPage() {
   const addSteps = async () => { if (!steps.trim()) return; await log({ kind: "steps", value: Number(steps), unit: "steps" }); setSteps(""); };
   const addNote = async () => { if (!note.trim()) return; await log({ kind: "note", note: note.trim() }); setNote(""); };
 
-  const fmt = (n: number) => n.toLocaleString(locale === "ar" ? "ar-SA" : "en-US");
+  const fmt = (n: number) => n.toLocaleString(locale === "ar" ? "ar-SA-u-nu-latn" : "en-US");
   const stepsDelta = d ? d.steps - d.steps_yesterday : 0;
 
   return (
@@ -89,7 +89,7 @@ export default function HealthPage() {
             <div className="t-title">{r.kind}{r.value != null ? ` · ${fmt(Number(r.value))} ${r.unit ?? ""}` : ""}</div>
             {r.note && <div className="metaline"><span className="meta">{r.note}</span></div>}
           </div>
-          <span className="meta">{new Date(r.logged_at).toLocaleTimeString(locale === "ar" ? "ar-SA" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>
+          <span className="meta">{new Date(r.logged_at).toLocaleTimeString(locale === "ar" ? "ar-SA-u-nu-latn" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>
         </div>
       ))}
     </div>
