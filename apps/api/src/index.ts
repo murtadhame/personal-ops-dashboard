@@ -9,6 +9,7 @@ import { taskRoutes } from "./routes/tasks.js";
 import { todayRoutes } from "./routes/today.js";
 import { notificationRoutes } from "./routes/notifications.js";
 import { calendarRoutes, syncAllCalendars } from "./routes/calendar.js";
+import { settingsRoutes } from "./routes/settings.js";
 
 const app = Fastify({
   logger: { transport: { target: "pino-pretty", options: { colorize: true } } },
@@ -35,6 +36,7 @@ await app.register(taskRoutes);
 await app.register(todayRoutes);
 await app.register(notificationRoutes);
 await app.register(calendarRoutes);
+await app.register(settingsRoutes);
 
 // Calendar sync every 15 minutes (guide: don't sync on every page load).
 const FIFTEEN_MIN = 15 * 60 * 1000;

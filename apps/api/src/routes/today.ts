@@ -67,8 +67,18 @@ export async function todayRoutes(app: FastifyInstance) {
       "select count(*)::int as c from pending_captures where status='pending'"
     ).catch(() => ({ c: 0 }));
 
+    const nameRows = await query<{ key: string; value: any }>(
+      "select key, value from app_settings where key in ('display_name_en','display_name_ar')"
+    );
+    const names: Record<string, any> = {};
+    for (const r of nameRows) names[r.key] = r.value;
+
     return {
       date: new Date().toISOString().slice(0, 10),
+      profile: {
+        name_en: names.display_name_en ?? "",
+        name_ar: names.display_name_ar ?? "",
+      },
       tasks,
       events,
       domains,

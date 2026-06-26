@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocale } from "@/lib/LocaleProvider";
 import { api } from "@/lib/api";
 import { LangToggle } from "@/components/LangToggle";
+import { Icon } from "@/components/Icon";
 
 export default function CalendarSettingsPage() {
   const { t } = useLocale();
@@ -11,6 +12,8 @@ export default function CalendarSettingsPage() {
   const [icsUrl, setIcsUrl] = useState("");
   const [icsName, setIcsName] = useState("Outlook (Badael)");
   const [msg, setMsg] = useState<string | null>(null);
+  const [nameEn, setNameEn] = useState("");
+  const [nameAr, setNameAr] = useState("");
 
   function load() {
     api.get<any[]>("/api/calendar/accounts").then(setAccounts).catch(() => setAccounts([]));
@@ -18,7 +21,24 @@ export default function CalendarSettingsPage() {
   useEffect(() => {
     load();
     api.get<any[]>("/api/domains").then(setDomains).catch(() => {});
+    api.get<Record<string, any>>("/api/settings").then((s) => {
+      setNameEn(s.display_name_en ?? "");
+      setNameAr(s.display_name_ar ?? "");
+    }).catch(() => {});
   }, []);
+
+  async function saveProfile() {
+    setMsg(null);
+    try {
+      await api.patch("/api/settings", { display_name_en: nameEn, display_name_ar: nameAr });
+      setMsg(t("saved"));
+      // Tell Today to re-fetch the greeting
+      window.dispatchEvent(new CustomEvent("pod:captured"));
+    } catch (e: any) {
+      setMsg(`Error: ${e.message}`);
+    }
+    setTimeout(() => setMsg(null), 2500);
+  }
 
   async function addIcs() {
     if (!icsUrl.trim()) return;
@@ -46,7 +66,7 @@ export default function CalendarSettingsPage() {
   async function syncNow() {
     setMsg(t("loading"));
     await api.post("/api/calendar/sync");
-    setMsg("✓");
+    setMsg(t("saved"));
     load();
   }
 
@@ -61,8 +81,22 @@ export default function CalendarSettingsPage() {
         <h1>{t("settings_title")}</h1>
       </div>
 
+      <div className="section-label"><span className="ico"><Icon name="settings" size={16} /></span> {t("profile")}</div>
+      <div className="card pad">
+        <p className="muted" style={{ marginBlockStart: 0, fontSize: "0.82rem" }}>{t("name_hint")}</p>
+        <label className="field">
+          <span className="lbl">{t("name_en_label")}</span>
+          <input value={nameEn} onChange={(e) => setNameEn(e.target.value)} placeholder="Murtadha" dir="ltr" />
+        </label>
+        <label className="field">
+          <span className="lbl">{t("name_ar_label")}</span>
+          <input value={nameAr} onChange={(e) => setNameAr(e.target.value)} placeholder="مرتضى" dir="rtl" />
+        </label>
+        <button className="btn primary" onClick={saveProfile}><Icon name="check" size={16} /> {t("save")}</button>
+      </div>
+
       <div className="section-label">{t("language")}</div>
-      <div className="card">
+      <div className="card pad">
         <LangToggle />
       </div>
 
@@ -124,8 +158,8 @@ export default function CalendarSettingsPage() {
                 ))}
               </select>
             </div>
-            <button className="btn ghost sm" onClick={() => remove(a.id)}>
-              ✕
+            <button className="btn ghost sm" onClick={() => remove(a.id)} aria-label="remove">
+              <Icon name="x" size={15} />
             </button>
           </div>
         ))}

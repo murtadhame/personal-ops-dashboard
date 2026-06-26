@@ -60,6 +60,11 @@ export const STRINGS: Dict = {
   never: { en: "never", ar: "أبداً" },
   // settings / calendars
   settings_title: { en: "Settings", ar: "الإعدادات" },
+  profile: { en: "Profile", ar: "الملف الشخصي" },
+  name_en_label: { en: "Name (English)", ar: "الاسم (إنجليزي)" },
+  name_ar_label: { en: "Name (Arabic)", ar: "الاسم (عربي)" },
+  name_hint: { en: "Used in your greeting, per language.", ar: "يُستخدم في التحية بحسب اللغة." },
+  saved: { en: "Saved", ar: "تم الحفظ" },
   calendars: { en: "Calendars", ar: "التقويمات" },
   connect_google: { en: "Connect Google Calendar", ar: "ربط تقويم جوجل" },
   add_outlook: { en: "Add Outlook (ICS link)", ar: "إضافة آوتلوك (رابط ICS)" },

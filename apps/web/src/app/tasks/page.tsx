@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocale } from "@/lib/LocaleProvider";
 import { api } from "@/lib/api";
+import { Icon } from "@/components/Icon";
 
 export default function TasksPage() {
   const { t } = useLocale();
@@ -94,7 +95,7 @@ export default function TasksPage() {
               onClick={() => toggle(task)}
               aria-label="toggle"
             >
-              ✓
+              <Icon name="check" size={14} />
             </button>
             <div className="grow">
               <div className={`title ${task.status === "done" ? "strike" : ""}`}>{task.title}</div>
