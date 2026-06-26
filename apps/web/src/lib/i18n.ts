@@ -28,6 +28,27 @@ export const STRINGS: Dict = {
   nav_library: { en: "Library", ar: "المكتبة" },
   nav_journal: { en: "Journal", ar: "اليوميات" },
   search: { en: "Search", ar: "بحث" },
+  nav_health: { en: "Health", ar: "الصحة" },
+  ask: { en: "Ask", ar: "اسأل" },
+  // briefing
+  briefing_title: { en: "Daily Briefing", ar: "موجز اليوم" },
+  regenerate: { en: "Regenerate", ar: "إعادة التوليد" },
+  briefing_loading: { en: "Writing your briefing…", ar: "أكتب موجزك…" },
+  // ask
+  ask_title: { en: "Ask", ar: "اسأل" },
+  ask_subtitle: { en: "Ask about your day, projects, or what's slipping.", ar: "اسأل عن يومك أو مشاريعك أو ما يتعثّر." },
+  ask_placeholder: { en: "e.g. Is Nashati up to date? What's slipping?", ar: "مثال: هل نشاطي محدّث؟ ما الذي يتعثّر؟" },
+  thinking: { en: "Thinking…", ar: "أفكّر…" },
+  // health
+  health_title: { en: "Health", ar: "الصحة" },
+  water: { en: "Water", ar: "الماء" },
+  steps: { en: "Steps", ar: "الخطوات" },
+  weight: { en: "Weight", ar: "الوزن" },
+  mood: { en: "Mood", ar: "المزاج" },
+  vs_yesterday: { en: "vs yesterday", ar: "مقابل الأمس" },
+  log_steps: { en: "Log steps", ar: "سجّل خطوات" },
+  health_note: { en: "Health note / journal", ar: "ملاحظة صحية / يوميات" },
+  add_log: { en: "Log", ar: "تسجيل" },
   // today sections
   top3_title: { en: "Top 3 for Today", ar: "أهم ٣ لليوم" },
   up_next: { en: "Up Next", ar: "التالي" },

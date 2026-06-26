@@ -35,6 +35,8 @@ export default function TodayPage() {
   const { t, locale } = useLocale();
   const [data, setData] = useState<Today | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [brief, setBrief] = useState<{ body_md: string } | null>(null);
+  const [briefBusy, setBriefBusy] = useState(false);
 
   const load = useCallback(() => {
     api.get<Today>("/api/today").then(setData).catch((e) => setErr(e.message));
@@ -46,6 +48,17 @@ export default function TodayPage() {
     window.addEventListener("pod:captured", h);
     return () => window.removeEventListener("pod:captured", h);
   }, [load]);
+
+  useEffect(() => {
+    setBrief(null);
+    api.get<{ body_md: string }>(`/api/briefing/today?lang=${locale}`).then(setBrief).catch(() => {});
+  }, [locale]);
+
+  const regenBrief = async () => {
+    setBriefBusy(true);
+    try { setBrief(await api.post<{ body_md: string }>(`/api/briefing/regenerate?lang=${locale}`)); }
+    finally { setBriefBusy(false); }
+  };
 
   const complete = async (id: string) => { await api.post(`/api/tasks/${id}/complete`); load(); };
   const star = async (id: string) => { await api.post(`/api/tasks/${id}/star`); load(); };
@@ -119,6 +132,15 @@ export default function TodayPage() {
       <div className="today-grid">
         {/* MAIN */}
         <div className="today-main animate-in">
+          {/* Daily briefing */}
+          <div className="brief">
+            <div className="sec" style={{ margin: "0 0 12px" }}>
+              <span className="eyebrow">{t("briefing_title")}</span>
+              <button className="viewall" onClick={regenBrief}>{briefBusy ? t("briefing_loading") : `${t("regenerate")} ↻`}</button>
+            </div>
+            {brief ? <div className="brief-body">{brief.body_md}</div> : <div className="muted" style={{ fontSize: "0.9rem" }}>{t("briefing_loading")}</div>}
+          </div>
+
           {/* Top 3 */}
           <div className="sec"><span className="eyebrow">{t("top3_title")}</span></div>
           <hr className="hr" />

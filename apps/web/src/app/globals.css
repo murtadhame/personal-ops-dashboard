@@ -189,6 +189,21 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .muted { color: var(--text-dim); }
 .center-empty { text-align: center; color: var(--text-dim); padding: 30px 10px; font-size: 0.9rem; }
 
+/* ---------- Daily briefing ---------- */
+.brief { background: var(--bg-tint); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; margin-block-end: 26px; }
+.brief-body { font-family: var(--serif); white-space: pre-wrap; line-height: 1.6; font-size: 1.04rem; color: var(--text); }
+
+/* ---------- Ask ---------- */
+.ask-answer { font-family: var(--serif); white-space: pre-wrap; line-height: 1.65; font-size: 1.08rem; margin-block-start: 20px; }
+
+/* ---------- Health stat tiles ---------- */
+.htiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-block: 6px 24px; }
+.htile { border: 1px solid var(--line); border-radius: 14px; padding: 18px; background: var(--field); }
+.htile .v { font-family: var(--serif); font-size: 2rem; line-height: 1; }
+.htile .u { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); margin-block-start: 8px; }
+.htile .cmp { font-family: var(--mono); font-size: 0.66rem; color: var(--text-dim); margin-block-start: 6px; }
+.water-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+
 /* ---------- Today two-column ---------- */
 .today-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
 

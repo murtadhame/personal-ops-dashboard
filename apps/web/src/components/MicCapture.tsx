@@ -20,8 +20,12 @@ export function MicCapture() {
       (typeof window !== "undefined" && (window as any).webkitSpeechRecognition);
     supportsSpeech.current = !!SR;
     const open = () => openSheet();
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "j") { e.preventDefault(); openSheet(); }
+    };
     window.addEventListener("pod:open-capture", open);
-    return () => window.removeEventListener("pod:open-capture", open);
+    window.addEventListener("keydown", onKey);
+    return () => { window.removeEventListener("pod:open-capture", open); window.removeEventListener("keydown", onKey); };
   }, []);
 
   function startRec() {

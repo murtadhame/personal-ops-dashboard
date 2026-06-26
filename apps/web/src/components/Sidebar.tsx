@@ -13,6 +13,7 @@ export const NAV = [
   { href: "/people", key: "nav_people", icon: "target" },
   { href: "/library", key: "nav_library", icon: "sparkles" },
   { href: "/journal", key: "nav_journal", icon: "calendar" },
+  { href: "/health", key: "nav_health", icon: "flame" },
   { href: "/domains", key: "nav_domains", icon: "grid" },
 ];
 
@@ -45,11 +46,10 @@ export function Sidebar() {
       <div className="side-divider" />
       <button className="side-foot" onClick={capture} style={{ inlineSize: "100%" }}>
         <span className="lbl">{t("capture")}</span>
-        <span className="kbd">⌘J</span>
+        <span className="kbd">Ctrl J</span>
       </button>
-      <Link href="/tasks" className="side-foot">
-        <span className="lbl">{t("search")}</span>
-        <span className="kbd">⌘K</span>
+      <Link href="/ask" className={`side-foot ${isActive("/ask", pathname) ? "active" : ""}`}>
+        <span className="lbl">{t("ask")}</span>
       </Link>
       <Link href="/settings/calendars" className="side-foot">
         <span className="lbl">{t("settings_title")}</span>
