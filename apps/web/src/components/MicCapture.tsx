@@ -19,6 +19,9 @@ export function MicCapture() {
       (typeof window !== "undefined" && (window as any).SpeechRecognition) ||
       (typeof window !== "undefined" && (window as any).webkitSpeechRecognition);
     supportsSpeech.current = !!SR;
+    const open = () => openSheet();
+    window.addEventListener("pod:open-capture", open);
+    return () => window.removeEventListener("pod:open-capture", open);
   }, []);
 
   function startRec() {
@@ -82,9 +85,11 @@ export function MicCapture() {
   return (
     <>
       {!open && (
-        <button className={`fab ${recording ? "recording" : ""}`} onClick={openSheet} aria-label={t("capture")}>
-          <Icon name="mic" size={24} />
-        </button>
+        <div className="fab-stack">
+          <button className={`fab ${recording ? "recording" : ""}`} onClick={openSheet} aria-label={t("capture")}>
+            <Icon name="mic" size={22} />
+          </button>
+        </div>
       )}
 
       {open && (

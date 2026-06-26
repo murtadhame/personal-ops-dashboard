@@ -184,7 +184,7 @@ export async function executeActions(
         case "create_note": {
           const row = await one<{ id: string }>(
             `insert into notes(body, source_type, tags)
-             values ($1, coalesce($2,'own_thought'), coalesce($3,'{}'))
+             values ($1, coalesce($2,'own_thought'), coalesce($3,'{}')::text[])
              returning id`,
             [action.body, action.source_type ?? null, action.tags ?? null]
           ).catch(() => null); // notes table arrives in Phase 3; ignore if absent

@@ -22,6 +22,8 @@ const ICONS: Record<string, React.ReactNode> = {
   chevron: <><path d="M9 6l6 6-6 6" /></>,
   inbox: <><path d="M22 12h-5l-1.5 2.5h-7L7 12H2" /><path d="M5.5 5.6 2.5 12v6a2 2 0 0 0 2 2h15a2 2 0 0 0 2-2v-6l-3-6.4A2 2 0 0 0 16.7 4.5H7.3a2 2 0 0 0-1.8 1.1z" /></>,
   flame: <><path d="M12 3s5 4 5 9a5 5 0 0 1-10 0c0-1.5.7-2.8 1.5-3.8C9.3 9 9 7 12 3z" /></>,
+  starOutline: <><path d="M12 3.2l2.6 5.7 6.2.6-4.7 4.2 1.4 6.1L12 16.8 6.5 19.8l1.4-6.1L3.2 9.5l6.2-.6z" /></>,
+  star: <><path fill="currentColor" stroke="none" d="M12 2.6l2.8 6.1 6.7.6-5 4.5 1.5 6.6L12 17.5 6 20.4l1.5-6.6-5-4.5 6.7-.6z" /></>,
   globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" /></>,
 };
 

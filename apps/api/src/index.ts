@@ -10,6 +10,8 @@ import { todayRoutes } from "./routes/today.js";
 import { notificationRoutes } from "./routes/notifications.js";
 import { calendarRoutes, syncAllCalendars } from "./routes/calendar.js";
 import { settingsRoutes } from "./routes/settings.js";
+import { routineRoutes } from "./routes/routines.js";
+import { moduleRoutes } from "./routes/modules.js";
 
 const app = Fastify({
   logger: { transport: { target: "pino-pretty", options: { colorize: true } } },
@@ -18,6 +20,17 @@ const app = Fastify({
 await app.register(cors, {
   origin: [env.appBaseUrl, "http://localhost:3000"],
   credentials: true,
+});
+
+// Tolerate empty JSON bodies (no-body POSTs like star/complete/toggle).
+app.addContentTypeParser("application/json", { parseAs: "string" }, (_req, body, done) => {
+  const s = (body as string) ?? "";
+  if (s.trim().length === 0) return done(null, {});
+  try {
+    done(null, JSON.parse(s));
+  } catch (err) {
+    done(err as Error);
+  }
 });
 
 app.get("/health", async () => {
@@ -37,6 +50,8 @@ await app.register(todayRoutes);
 await app.register(notificationRoutes);
 await app.register(calendarRoutes);
 await app.register(settingsRoutes);
+await app.register(routineRoutes);
+await app.register(moduleRoutes);
 
 // Calendar sync every 15 minutes (guide: don't sync on every page load).
 const FIFTEEN_MIN = 15 * 60 * 1000;

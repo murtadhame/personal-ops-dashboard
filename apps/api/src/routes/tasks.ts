@@ -83,6 +83,15 @@ export async function taskRoutes(app: FastifyInstance) {
     );
   });
 
+  // Star / unstar (Top 3 for Today)
+  app.post("/api/tasks/:id/star", async (req) => {
+    const { id } = req.params as any;
+    return one(
+      "update tasks set is_starred = not is_starred where id=$1 returning *",
+      [id]
+    );
+  });
+
   // Convenience toggle
   app.post("/api/tasks/:id/complete", async (req) => {
     const { id } = req.params as any;
