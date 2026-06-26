@@ -37,6 +37,7 @@ export default function TodayPage() {
   const [err, setErr] = useState<string | null>(null);
   const [brief, setBrief] = useState<{ body_md: string } | null>(null);
   const [briefBusy, setBriefBusy] = useState(false);
+  const [summary, setSummary] = useState<any>(null);
 
   const load = useCallback(() => {
     api.get<Today>("/api/today").then(setData).catch((e) => setErr(e.message));
@@ -53,6 +54,8 @@ export default function TodayPage() {
     setBrief(null);
     api.get<{ body_md: string }>(`/api/briefing/today?lang=${locale}`).then(setBrief).catch(() => {});
   }, [locale]);
+
+  useEffect(() => { api.get<any>("/api/summaries/latest").then(setSummary).catch(() => {}); }, []);
 
   const regenBrief = async () => {
     setBriefBusy(true);
@@ -140,6 +143,20 @@ export default function TodayPage() {
             </div>
             {brief ? <div className="brief-body">{brief.body_md}</div> : <div className="muted" style={{ fontSize: "0.9rem" }}>{t("briefing_loading")}</div>}
           </div>
+
+          {/* Latest summary from GitHub */}
+          {summary?.file?.content && (
+            <div className="brief">
+              <div className="sec" style={{ margin: "0 0 12px" }}>
+                <span className="eyebrow">{t("latest_summary")}</span>
+                {summary.file.html_url && <a className="viewall" href={summary.file.html_url} target="_blank" rel="noreferrer">{summary.file.name} →</a>}
+              </div>
+              <div className="brief-body" style={{ maxBlockSize: 260, overflowY: "auto" }}>{summary.file.content}</div>
+            </div>
+          )}
+          {summary && summary.connected === false && summary.needs_token && (
+            <p className="muted" style={{ fontSize: "0.85rem", marginBlockEnd: 20 }}>{t("summary_needs_token")}</p>
+          )}
 
           {/* Top 3 */}
           <div className="sec"><span className="eyebrow">{t("top3_title")}</span></div>

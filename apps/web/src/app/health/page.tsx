@@ -11,8 +11,12 @@ export default function HealthPage() {
   const [steps, setSteps] = useState("");
   const [note, setNote] = useState("");
 
+  const [whoop, setWhoop] = useState<any>(null);
   const load = useCallback(() => { api.get<HToday>("/api/health/today").then(setD).catch(() => {}); }, []);
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    load();
+    api.get<any>("/api/whoop/today").then(setWhoop).catch(() => setWhoop({ connected: false }));
+  }, [load]);
 
   const log = async (body: any) => { await api.post("/api/health", body); load(); };
   const addSteps = async () => { if (!steps.trim()) return; await log({ kind: "steps", value: Number(steps), unit: "steps" }); setSteps(""); };
@@ -36,6 +40,23 @@ export default function HealthPage() {
         </div>
         <div className="htile"><div className="v">{d?.weight ? fmt(d.weight) : "—"}</div><div className="u">{t("weight")} · KG</div></div>
       </div>
+
+      {/* Whoop */}
+      <div className="section-label">{t("whoop")}</div>
+      {whoop?.connected ? (
+        <div className="htiles animate-in">
+          <div className="htile"><div className="v">{whoop.recovery_score ?? "—"}{whoop.recovery_score != null ? "%" : ""}</div><div className="u">{t("recovery")}</div></div>
+          <div className="htile"><div className="v">{whoop.sleep_performance ?? "—"}{whoop.sleep_performance != null ? "%" : ""}</div><div className="u">{t("sleep")}</div></div>
+          <div className="htile"><div className="v">{whoop.strain ?? "—"}</div><div className="u">{t("strain")}</div></div>
+          <div className="htile"><div className="v">{whoop.hrv ?? "—"}</div><div className="u">HRV · MS</div></div>
+          <div className="htile"><div className="v">{whoop.resting_hr ?? "—"}</div><div className="u">{t("resting_hr")} · BPM</div></div>
+        </div>
+      ) : (
+        <div className="brief animate-in" style={{ marginBlockEnd: 22 }}>
+          <div className="brief-body" style={{ fontSize: "1rem" }}>{t("whoop_hint")}</div>
+          <a className="btn solid" href={`${api.base}/api/whoop/connect`} style={{ marginBlockStart: 14, display: "inline-flex" }}>{t("whoop_connect")}</a>
+        </div>
+      )}
 
       {/* Water quick-log */}
       <div className="section-label">{t("water")}</div>

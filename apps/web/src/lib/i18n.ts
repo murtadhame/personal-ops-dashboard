@@ -53,6 +53,17 @@ export const STRINGS: Dict = {
   log_steps: { en: "Log steps", ar: "سجّل خطوات" },
   health_note: { en: "Health note / journal", ar: "ملاحظة صحية / يوميات" },
   add_log: { en: "Log", ar: "تسجيل" },
+  // whoop
+  whoop: { en: "Whoop", ar: "ووب" },
+  whoop_connect: { en: "Connect Whoop", ar: "اربط ووب" },
+  whoop_hint: { en: "Connect Whoop for recovery, sleep, and strain. (Steps stay manual for now.)", ar: "اربط ووب للتعافي والنوم والجهد. (الخطوات يدوية حالياً.)" },
+  recovery: { en: "Recovery", ar: "التعافي" },
+  sleep: { en: "Sleep", ar: "النوم" },
+  strain: { en: "Strain", ar: "الجهد" },
+  resting_hr: { en: "Resting HR", ar: "نبض الراحة" },
+  // summaries
+  latest_summary: { en: "Latest Briefing", ar: "أحدث ملخص" },
+  summary_needs_token: { en: "Add a GitHub token (.env GITHUB_TOKEN) to read your summaries repo.", ar: "أضف رمز GitHub (في .env) لقراءة مستودع الملخصات." },
   // today sections
   top3_title: { en: "Top 3 for Today", ar: "أهم ٣ لليوم" },
   up_next: { en: "Up Next", ar: "التالي" },

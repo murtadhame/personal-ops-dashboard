@@ -35,5 +35,17 @@ export const env = {
       process.env.GOOGLE_REDIRECT_URI ?? "http://localhost:4000/api/calendar/google/callback",
   },
 
+  whoop: {
+    clientId: process.env.WHOOP_CLIENT_ID ?? "",
+    clientSecret: process.env.WHOOP_CLIENT_SECRET ?? "",
+    redirectUri: process.env.WHOOP_REDIRECT_URI ?? "http://localhost:4000/api/whoop/callback",
+  },
+
+  github: {
+    token: process.env.GITHUB_TOKEN ?? "",
+    summariesRepo: process.env.GITHUB_SUMMARIES_REPO ?? "murtadhame/claude",
+    summariesPath: process.env.GITHUB_SUMMARIES_PATH ?? "summaries",
+  },
+
   capturePepper: process.env.CAPTURE_TOKEN_PEPPER ?? "",
 };
